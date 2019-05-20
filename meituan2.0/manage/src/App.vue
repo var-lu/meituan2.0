@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-row>
-        <el-col class="logo" :span="4">
+        <el-col class="logo" :span="5">
           <i class="el-icon-eleme"></i>
           <strong>
             美团外卖管理系统
@@ -78,7 +78,7 @@ export default {
 
 <style lang="less" scoped>
   .el-header{
-    background-color: #409EFF;
+    background-color: #FFD300;
     color: #fff;
     text-align: center;
     line-height: 60px;
@@ -87,6 +87,12 @@ export default {
     .out{
       float: right;
       font-size: 16px;
+    }
+    .el-icon-eleme{
+    	background: url(./assets/my.png) no-repeat center;
+    	background-size: cover;
+    	border-radius: 50%;
+    	background-color: white;
     }
   }
   

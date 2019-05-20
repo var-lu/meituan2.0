@@ -63,7 +63,7 @@
     border: 1px solid #ccc;
     padding: 10px 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px lightblue;
+    box-shadow: 0 0 10px #FFD300;
     h3{
         text-align: center;
     }

@@ -7,7 +7,7 @@ import axios from "axios";
 import 'element-ui/lib/theme-chalk/index.css';
 import login from "@/views/login";
 import filters from "@/filters/index";
-import components from "@/components/index"
+import components from "@/components/index";
 Vue.use(ElementUI);
 Vue.use(components);
 Vue.use(filters);
@@ -15,9 +15,9 @@ Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
 // axios拦截器
 axios.interceptors.request.use(config=>{
-  // 添加ele前缀反向代理
+  // 添加meituan前缀反向代理
   store.commit("SET_IS_LOADING",true)
-  config.url = "/ele/"+config.url+"?t="+Date.now();
+  config.url = "/meituan/"+config.url+"?t="+Date.now();
   config.headers={
     "authorization":localStorage.token
   };

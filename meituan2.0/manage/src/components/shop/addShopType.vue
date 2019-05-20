@@ -50,8 +50,8 @@
               shopType:"",
           },
           baseURL:{
-            addShopType:"/ele/addShopType",
-            updateShopType:"/ele/updateShopType"
+            addShopType:"/meituan/addShopType",
+            updateShopType:"/meituan/updateShopType"
           },
           shopTypeRules:[
               { required: true, message: '店铺类别名称不能为空'},
