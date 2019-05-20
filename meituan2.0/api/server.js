@@ -41,7 +41,6 @@ app.delete("/deleteShopType",shop.deleteShopType);
 app.post("/updateShopType",shop.updateShopType);
 
 
-
 app.listen(80,function(){
     console.log("success");
 });
