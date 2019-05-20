@@ -30,9 +30,7 @@ app.post('/login',admin.login);
 app.get("/getAdminLog",admin.getAdminLog);
 // 删除日志
 app.delete("/deleteadminlog",admin.deleteAdminLog);
-app.listen(80,function(){
-    console.log("success");
-});
+
 // 添加店铺类别
 app.post("/addShopType",shop.addShopType);
 // 获取店铺类别
@@ -40,4 +38,10 @@ app.get("/getShopType",shop.getShopType);
 // 删除店铺类别
 app.delete("/deleteShopType",shop.deleteShopType);
 // 更新店铺类别
-app.post("/updateShopType",shop.updateShopType)
+app.post("/updateShopType",shop.updateShopType);
+
+
+
+app.listen(80,function(){
+    console.log("success");
+});

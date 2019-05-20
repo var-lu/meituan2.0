@@ -3,7 +3,7 @@ const token = require("../module/token");
 const upPic=require("../module/upPic");
 const {unlink}=require("fs");
 const mongodb=require("mongodb");
-module.exports.getUser=function(req,res){
+module.exports.getShopType=function(req,res){
     // 获取数据的时候需要验证token
     // 前端发送token
     // 后端验证
@@ -11,18 +11,18 @@ module.exports.getUser=function(req,res){
     var status = token.decode(req.headers.authorization);
     if(status.ok===1){
         var whereObj = {};
-        if(req.query.userName){
-            whereObj.userName=new RegExp(req.query.userName)
+        if(req.query.shopType){
+            whereObj.shopType=new RegExp(req.query.shopType)
         }
         var pageIndex= req.query.pageIndex/1;
         var limitNum=10;
-        db.count("userList",whereObj,function(count){
-            db.find("userList",{
+        db.count("shopTypeList",whereObj,function(count){
+            db.find("shopTypeList",{
                 whereObj,
                 limitNum,
                 skipNum:(pageIndex-1)*limitNum,
                 sortObj:{loginTime:-1}
-            },function(err,userList){
+            },function(err,shopTypeList){
                 var pageSum = Math.ceil(count/limitNum);
                 if(pageSum<1){
                     pageSum=1;
@@ -35,7 +35,7 @@ module.exports.getUser=function(req,res){
                 }
                 res.json({
                     ok:1,
-                    userList,
+                    shopTypeList,
                     pageIndex,
                     pageSum
                 });
@@ -49,10 +49,10 @@ module.exports.getUser=function(req,res){
     }
 }
 module.exports.addShopType=function(req,res){
-    upPic.upPic(req,"userNamePic",function(obj){
+    upPic.upPic(req,"shopTypePic",function(obj){
         if(obj.ok===3){
-            db.count("userNameList",{
-                userName:obj.params.userName
+            db.count("shopTypeList",{
+                shopType:obj.params.shopType
             },function(count){
                 if(count>0){
                     // 删除已经存在店铺类型的图片
@@ -63,9 +63,9 @@ module.exports.addShopType=function(req,res){
                         });
                     })
                 }else{
-                    db.insertOne("userNameList",{
-                        userName:obj.params.userName,
-                        userNamePic:obj.params.newPicName,
+                    db.insertOne("shopTypeList",{
+                        shopType:obj.params.shopType,
+                        shopTypePic:obj.params.newPicName,
                         addTime:Date.now(),
                         updateTime:Date.now()
                     },function(err){
@@ -85,7 +85,7 @@ module.exports.addShopType=function(req,res){
     })
 }
 module.exports.deleteShopType=function(req,res){
-    db.deleteOneById("userNameList",req.query.id,function(err){
+    db.deleteOneById("shopTypeList",req.query.id,function(err){
         if(!err){
             res.json({
                 ok:1,
@@ -103,16 +103,16 @@ module.exports.deleteShopType=function(req,res){
 module.exports.updateShopType=function(req,res){
     
     function _updateShopType(id,$set){
-        db.updateOneById("userNameList",id,{$set},function(err){
+        db.updateOneById("shopTypeList",id,{$set},function(err){
             res.json({
                 ok:1,
                 msg:"修改成功"
             })
         })
     }
-    var bodyShopType=req.body.userName;
+    var bodyShopType=req.body.shopType;
     if(bodyShopType){
-        db.findOne("userNameList",{userName:bodyShopType},function(err,info){
+        db.findOne("shopTypeList",{shopType:bodyShopType},function(err,info){
             if(info&&info._id.toString()!==req.body._id){
                 res.json({
                     ok:-1,
@@ -120,14 +120,14 @@ module.exports.updateShopType=function(req,res){
                 })
             }else{
                 var $set={
-                    userName:bodyShopType,
+                    shopType:bodyShopType,
                     updateTime:Date.now()
                 }
                 _updateShopType(req.body._id,$set);
             }
         })
     }else{ 
-        upPic.upPic(req,"userNamePic",function(obj){
+        upPic.upPic(req,"shopTypePic",function(obj){
             if(obj.ok===2){
                 // 上传格式不对
                 res.json({
@@ -135,7 +135,7 @@ module.exports.updateShopType=function(req,res){
                     msg:"图片上传失败（格式不对）"
                 })
             }else{
-                db.findOne("userNameList",{userName:obj.params.userName},function(err,info){
+                db.findOne("shopTypeList",{shopType:obj.params.shopType},function(err,info){
                     if(info&&info._id.toString()!==obj.params._id){
                         // 删除已经存在店铺类型的图片
                         upPic.deletePic(obj.params.newPicName,function(){
@@ -146,14 +146,14 @@ module.exports.updateShopType=function(req,res){
                         })
                     }else{
                         var $set={
-                            userName:obj.params.userName,
+                            shopType:obj.params.shopType,
                             updateTime:Date.now()
                         }
                         // 上传图片的修改
-                        $set.userNamePic=obj.params.newPicName;
-                        db.findOneById("userNameList",obj.params._id,function(err,info){
+                        $set.shopTypePic=obj.params.newPicName;
+                        db.findOneById("shopTypeList",obj.params._id,function(err,info){
                             // 删除之前的照片
-                            unlink(__dirname+"/../upload"+info.userNamePic,function(){
+                            unlink(__dirname+"/../upload"+info.shopTypePic,function(){
 
                                 _updateShopType(obj.params._id,$set)
                             })
