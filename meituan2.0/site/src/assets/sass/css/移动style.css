@@ -1,0 +1,113 @@
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px "宋体","Arial Narrow",HELVETICA/*兼容蘋果沒有微軟雅黑*/;background:#fff;}
+a{text-decoration:none;}
+em{font-style:normal;}
+li{list-style:none;}
+img{border:0;vertical-align:middle;width: 100%;}
+p{word-wrap:break-word}/*給英文強制換行*/
+h1,h2,h3,h4,h5,h6{line-height: none;}
+.noborder{border:0;}
+.left{floaT:left;}
+.right{float:right;}
+.clearBoth{clear:both;}
+*{box-sizing: border-box;}
+html,body,.box{width: 100%;height: 100%;}
+html{font-size: 26.67vw;}
+.box{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+/*头部*/
+header{
+	width: 100%;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 0.18rem;
+}
+
+/*主体*/
+section{
+	width: 100%;
+	flex: 1;
+	overflow: hidden;
+}
+section .star {
+	width: 100%;
+	height: 2.08rem;
+	padding-left: 0.15rem;
+	
+}
+section .star h4{
+	margin-top: 0.2rem;
+	width: 0.65rem;
+	height: 0.65rem;
+}
+section .star h4+p{
+	width: 0.65rem;
+	text-align: center;
+	line-height: 0.3rem;
+}
+section .star p+p{
+	width: 0.55rem;
+	height: 0.25rem;
+	border-radius: 0.12rem;
+	background: #CCCCCC;
+	margin-left: 0.06rem;
+	font-size: 20px;
+	text-align: center;
+	line-height: 0.25rem;
+	font-weight: bold;
+	color: #a3a3a3;
+}
+section .list{
+	width: 100%;
+	padding: 0 0.15rem;
+	height: 0.55rem;
+	line-height: 0.55rem;
+}
+section .list:after{
+	content: "";
+	display: block;
+	width: 200%;
+	height: 1.1rem;
+	/* border-top: 0.01rem solid #CCCCCC; */
+	transform: scale(0.5,0.5) translate(-50%,-50%);
+}
+section .list a{
+	color: #979797;
+	display: inline-block;
+	width: 0.78rem;
+	text-align: right;
+	/* background: url(../img/tu6.jpg) no-repeat left; */
+	background-size: 0.15rem 0.15rem;
+}
+/*尾部*/
+footer{
+	width: 100%;
+	height: 0.5rem;
+	padding: 0.1rem;
+	position: relative;
+}
+footer input{
+	width: 3rem;
+	height: 0.3rem;
+	background: #f5f7f9;
+	border-radius: 0.03rem;
+	border: none;
+	text-align: center;
+}
+footer a{
+	position: absolute;
+	right: 0.15rem;
+	top:0.2rem;
+	color: #CCCCCC;
+	font-size: 14px;
+}
+footer img{
+	width: 0.15rem;
+	height: 0.18rem;
+	margin-right: 0.06rem;
+}
