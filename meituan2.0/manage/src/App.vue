@@ -89,7 +89,6 @@ export default {
       font-size: 16px;
     }
   }
-  
   .el-aside {
     background-color: #D3DCE6;
     color: #333;
