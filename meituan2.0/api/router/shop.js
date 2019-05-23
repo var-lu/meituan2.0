@@ -101,7 +101,6 @@ module.exports.deleteShopType=function(req,res){
 }
 // 编辑店铺类别
 module.exports.updateShopType=function(req,res){
-    
     function _updateShopType(id,$set){
         db.updateOneById("shopTypeList",id,{$set},function(err){
             res.json({

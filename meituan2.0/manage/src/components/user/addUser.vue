@@ -43,7 +43,6 @@
             rules:{
                 userPhone:[
                     {validator:checkPhone,trigger:"blur"}
-                    
                 ]
             }
         };

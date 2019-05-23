@@ -44,6 +44,8 @@ app.post("/addUser",user.addUser);
 app.get("/getUserList",user.getUserList);
 // 获取用户列表
 app.delete("/deleteUser",user.deleteUser);
+// 更新用户
+app.post("/updateUser",user.updateUser);
 app.listen(80,function(){
     console.log("success");
 });

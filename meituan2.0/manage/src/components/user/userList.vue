@@ -10,7 +10,7 @@
                 </el-form-item>
                 <!-- 模仿前台添加用户 -->
                 <el-form-item>
-                    <el-button type="primary" @click="addUserShow=true" >添加用户</el-button>
+                    <el-button type="primary" @click="addOrUpdate=true;addShopTypeVisible=true" >添加用户</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -35,14 +35,22 @@
                 align="center">
             </el-table-column>
             <el-table-column
-                prop="userPic"
                 label="头像"
                 align="center">
+                <template slot-scope="scope">
+                    <img width="60" 
+                    height="60" 
+                    :src="$store.state.config.baseUrl+scope.row.userPic"
+                    alt="">
+                </template>
             </el-table-column>
             <el-table-column
                 prop="userBirth"
                 label="生日"
                 align="center">
+                <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ new Date(scope.row.userBirth).toLocaleDateString()}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                 prop="userPhone"
@@ -69,7 +77,8 @@
                 width="200">
                 <template slot-scope="scope">
                     <el-button
-                    size="mini">
+                    size="mini"
+                    @click="updateUser(scope.row)">
                     编辑
                     </el-button>
                     <el-button
@@ -92,15 +101,17 @@
             :page-count="$store.state.pageInfo.pageSum">
             </el-pagination>
         </div>
-        <addUser :visible.sync="addUserShow"></addUser>
+        <!-- <addUser :visible.sync="addUserShow"></addUser> -->
+        <editUser :visible.sync="addUserVisible" :userData="userData" :addOrUpdate="addOrUpdate"></editUser>
     </div>
 </template>
 <script>
 export default {
     data(){
         return{
-
-            addUserShow:false,
+            addUserVisible:false,
+            addOrUpdate:true,
+            userData:null,
             search:{
                 userName:"",
                 pageIndex:1
@@ -113,6 +124,16 @@ export default {
     methods:{
         deleteUser(id,index){
             this.$store.dispatch('deleteUser',{that:this,id,index})
+        },
+        updateUser(row){
+            this.userData=row;
+            // setTimeout(()=>{
+            //     this.addOrUpdate=false;
+            //     this.addUserVisible=true;
+            // },0)
+            this.addOrUpdate=false;
+            this.addUserVisible=true;
+            
         }
     }
 }

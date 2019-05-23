@@ -1,7 +1,6 @@
 
 const axios = require("axios");
 const state={
-    token:localStorage.token,
     userList:[]
 };
 const mutations={
@@ -60,6 +59,21 @@ const actions={
                 obj.that.$message.error("删除失败");
             }
         });
+    },
+    updateUserNoPic(content,obj){
+        axios.post("updateUser",{
+            user:obj.form
+        }).then(data=>{
+            if(data.ok===1){
+                obj.that.$message.success("修改成功");
+                for(var key in obj.that.form){
+                    obj.that.form[key]="";
+                }
+                content.dispatch('getUserList',content.rootState.pageInfo.pageIndex-(obj.index<1?1:0));
+            }else{
+                obj.that.$message.error("修改失败");
+            }
+        })
     }
 };
 export default {

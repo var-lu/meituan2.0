@@ -1,38 +1,43 @@
 const db = require("../module/db");
-const {getRandom} = require("../module/tool")
+const {getRandom} = require("../module/tool");
+const upPic =require("../module/upPic");
 const token = require("../module/token");
 module.exports.addUser=function(req,res){
-    db.findOne("mtUserList",{
-        userPhone:req.body.userPhone
-    },function(err,info){
-        if(info){
-            // db.updateOneById("mtUserList",info._id,{
-            //     loginTime:Date.now()
-            // },function(err){
-            //     res.json({
-            //         ok:1,
-            //         msg:"更新成功"
-            //     }) 
-            // })
+    upPic.upPic(req,"userPic",function(obj){
+        if(obj.ok===2){
+            // 上传格式不对
             res.json({
                 ok:-1,
-                msg:"该手机用户已注册"
+                msg:"图片上传失败（格式不对）"
             })
         }else{
-           db.insertOne("mtUserList",{
-               userName:"xiaotuanzi"+getRandom(100000,999999),
-               userSex:"暂无",
-               userPhone:req.body.userPhone/1,
-               userPic:"暂无",
-               userBirth:"暂无",
-               registTime:Date.now(),
-               loginTime:Date.now()
-           },function(err){
-                res.json({
-                    ok:1,
-                    msg:"插入成功"
-                })
-           })
+            db.findOne("mtUserList",{userPhone:obj.params.userPhone},function(err,info){
+                if(info&&info._id.toString()!==obj.params._id){
+                    // 删除已经存在店铺类型的图片
+                    upPic.deletePic(obj.params.newPicName,function(){
+                        res.json({
+                            ok:-1,
+                            msg:"这个手机号已经被绑定了哦，请换个手机号修改^_^"
+                        });
+                    })
+                }else{
+                    db.insertOne("mtUserList",{
+                        userName:obj.params.userName,
+                        userSex:obj.params.userSex,
+                        userPhone:obj.params.userPhone/1,
+                        userPic:obj.params.newPicName,
+                        userBirth:obj.params.userBirth,
+                        registTime:Date.now(),
+                        loginTime:Date.now()
+                    },function(err){
+                        res.json({
+                            ok:1,
+                            msg:"插入成功"
+                        })
+                    })
+                }
+            })
+            
         }
     })
 }
@@ -96,18 +101,76 @@ module.exports.deleteUser=function(req,res){
         }
     })
 }
-module.exports.update=function(req,res){
-    db.deleteOneById("mtUserList",req.query.id,function(err){
-        if(!err){
+// 编辑店铺类别
+module.exports.updateUser=function(req,res){
+    function _updateUser(id,$set){
+        db.updateOneById("mtUserList",id,{$set},function(err){
             res.json({
                 ok:1,
-                msg:"删除成功"
+                msg:"修改成功"
             })
-        }else{
-            res.json({
-                ok:-1,
-                msg:"删除失败"
-            })
-        }
-    })
+        })
+    }
+    var bodyUser=req.body.user;
+    if(bodyUser){
+        // 没有修改图片的
+        db.findOne("mtUserList",{userPhone:bodyUser.userPhone},function(err,info){
+            if(info&&info._id.toString()!==bodyUser._id){
+                res.json({
+                    ok:-1,
+                    msg:"这个手机号已经被绑定了哦，请换个手机号修改^_^"
+                })
+            }else{
+                var $set={
+                    userName:bodyUser.userName,
+                    userPhone:bodyUser.userPhone,
+                    userSex:bodyUser.userSex,
+                    userBirth:bodyUser.userBirth
+                }
+                
+                _updateUser(bodyUser._id,$set);
+            }
+        })
+    }else{ 
+        // 修改图片的
+        upPic.upPic(req,"userPic",function(obj){
+            if(obj.ok===2){
+                // 上传格式不对
+                res.json({
+                    ok:-1,
+                    msg:"图片上传失败（格式不对）"
+                })
+            }else{
+                db.findOne("mtUserList",{userPhone:obj.params.userPhone},function(err,info){
+                    if(info&&info._id.toString()!==obj.params._id){
+                        // 删除已经存在店铺类型的图片
+                        upPic.deletePic(obj.params.newPicName,function(){
+                            res.json({
+                                ok:-1,
+                                msg:"这个手机号已经被绑定了哦，请换个手机号修改^_^"
+                            });
+                        })
+                    }else{
+                        var $set={
+                            userName:obj.params.userName,
+                            userPhone:obj.params.userPhone,
+                            userSex:obj.params.userSex,
+                            userBirth:obj.params.userBirth 
+                        }
+                        // 上传图片的修改
+                        $set.shopTypePic=obj.params.newPicName;
+                        db.findOneById("mtUserList",obj.params._id,function(err,info){
+                            // 删除之前的照片
+                            unlink(__dirname+"/../upload"+info.userPic,function(){
+
+                                _updateUser(obj.params._id,$set)
+                            })
+                        })
+                    }
+                })
+                
+            }
+        })
+    }
+   
 }
