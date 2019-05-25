@@ -1,12 +1,11 @@
 module.exports={
     devServer:{
-        open:true,
         proxy:{
-            "/ele":{
+            "/meituan":{
                 target:"http://127.0.0.1",
                 changeOrigin:true,
                 pathRewrite:{
-                    "^/ele":""
+                    "^/meituan":""
                 }
             }
         }

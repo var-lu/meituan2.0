@@ -57,6 +57,7 @@ form{
           outline: none;
           text-indent: .2rem;
           font-size: 16px;
+          height: .5rem;
         }
         i{
           display: inline-block;

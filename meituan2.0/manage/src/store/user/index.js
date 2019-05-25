@@ -1,37 +1,29 @@
 
 const axios = require("axios");
 const state={
-    token:localStorage.token,
-    userLog:[]
+    userList:[]
 };
 const mutations={
-    SET_TOKEN(state,token){
-        state.token=localStorage.token=token;
-    },
-    OUT_LOGIN(state){
-        state.token=localStorage.token="";
-    },
-    SET_ADMIN_LOG(state,userLog){
-        state.userLog=userLog;
+    SET_USER_LIST(state,userList){
+        state.userList=userList;
     }
 };
 const actions={
-    login({commit},that){
-        axios.post("login",that.userForm)
+    addUser({commit},obj){
+        axios.post("addUser",{userPhone:obj.userPhone})
         .then(data=>{
             if(data&&data.ok===1){
-                that.$message.success("恭喜你，登录成功");
-                // 必须用commit改变state里的token值可以实现页面的跳转
-                commit("SET_TOKEN",data.token);
+                obj.that.$message.success("恭喜你，添加成功");
+                obj.that.$store.dispatch("getUserList",{})
             }else{
-                that.$message.error(data.msg);
+                obj.that.$message.error(data.msg);
             }
-            that.isLoading=false;
+            obj.that.isLoading=false;
         })
     },
-    getUserLog({commit},obj){
-        // 发送请求获取登录日志
-        axios.get("getUserLog",{
+    getUserList({commit},obj){
+        // 发送请求获取用户列表
+        axios.get("getUserList",{
             params:{
                 userName:obj.userName,
                 pageIndex:obj.pageIndex
@@ -39,8 +31,9 @@ const actions={
         })
         .then(data=>{
             // 判断返回的值，并改变state里的的值
+            console.log(data)
             if(data&&data.ok===1){
-                commit("SET_ADMIN_LOG",data.userLog);
+                commit("SET_USER_LIST",data.mtUserList);
                 commit("SET_PAGE_INFO",{
                     pageIndex:data.pageIndex,
                     pageSum:data.pageSum
@@ -48,23 +41,39 @@ const actions={
             }
         })
     },
-    deleteUserLog(content,obj){
-        axios.delete("deleteUserLog",{
+    deleteUser(content,obj){
+        axios.delete("deleteUser",{
             params:{
                 id:obj.id
             }
         }).then(data=>{
             if(data.ok===1){
                 obj.that.$message.success("删除成功");
-                if(obj.index<1){
-                    content.dispatch('getUserLog',content.rootState.pageInfo.pageIndex-1);
-                }else{
-                    content.dispatch('getUserLog',content.rootState.pageInfo.pageIndex);
-                }
+                // if(obj.index<1){
+                //     content.dispatch('getUserList',content.rootState.pageInfo.pageIndex-1);
+                // }else{
+                //     content.dispatch('getUserList',content.rootState.pageInfo.pageIndex);
+                // }
+                    content.dispatch('getUserList',content.rootState.pageInfo.pageIndex-(obj.index<1?1:0));
             }else{
                 obj.that.$message.error("删除失败");
             }
         });
+    },
+    updateUserNoPic(content,obj){
+        axios.post("updateUser",{
+            user:obj.form
+        }).then(data=>{
+            if(data.ok===1){
+                obj.that.$message.success("修改成功");
+                for(var key in obj.that.form){
+                    obj.that.form[key]="";
+                }
+                content.dispatch('getUserList',content.rootState.pageInfo.pageIndex-(obj.index<1?1:0));
+            }else{
+                obj.that.$message.error("修改失败");
+            }
+        })
     }
 };
 export default {

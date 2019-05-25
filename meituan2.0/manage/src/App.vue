@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <el-row>
-        <el-col class="logo" :span="4">
+        <el-col class="logo" :span="5">
           <i class="el-icon-eleme"></i>
           <strong>
             美团外卖管理系统
@@ -44,6 +44,14 @@
                   <template slot="title">店铺管理</template>
                   <el-menu-item index="1-2-1">店铺</el-menu-item>
                 </el-submenu>
+                <el-submenu index="1-3">
+                  <template slot="title">商品类别管理</template>
+                  <el-menu-item index="1-3-1" @click="$router.push('/goodsTypeList')">商品类别</el-menu-item>
+                </el-submenu>
+                <el-submenu index="1-4">
+                  <template slot="title">商品管理</template>
+                  <el-menu-item index="1-4-1">商品</el-menu-item>
+                </el-submenu>
               </el-submenu>
               <el-menu-item index="2">
                 <i class="el-icon-menu"></i>
@@ -82,7 +90,7 @@ export default {
 
 <style lang="less" scoped>
   .el-header{
-    background-color: #409EFF;
+    background-color: #FFD300;
     color: #fff;
     text-align: center;
     line-height: 60px;
@@ -92,8 +100,13 @@ export default {
       float: right;
       font-size: 16px;
     }
+    .el-icon-eleme{
+    	background: url(./assets/my.png) no-repeat center;
+    	background-size: cover;
+    	border-radius: 50%;
+    	background-color: white;
+    }
   }
-  
   .el-aside {
     background-color: #D3DCE6;
     color: #333;

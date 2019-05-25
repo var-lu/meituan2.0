@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import admin from "./admin/index";
 import shop from "./shop/index";
+import goods from "./goods/index";
 import config from "./config/index";
 import user from "./user/index";
 Vue.use(Vuex);
@@ -34,6 +35,7 @@ export default new Vuex.Store({
   modules:{
     admin,
     shop,
+    goods,
     config,
     user
   }
