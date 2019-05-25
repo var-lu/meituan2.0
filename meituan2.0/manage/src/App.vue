@@ -103,7 +103,6 @@ export default {
     	background-color: white;
     }
   }
-  
   .el-aside {
     background-color: #D3DCE6;
     color: #333;

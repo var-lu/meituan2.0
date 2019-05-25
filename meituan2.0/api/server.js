@@ -2,11 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb=require("mongodb");
 const db =require("./module/db");
-const token =require("./module/token")
+const token =require("./module/token");
 const app = express();
 const admin = require("./router/admin");
 const shop = require("./router/shop");
+const user = require("./router/user");
 const goods = require("./router/goods");
+
 app.use(bodyParser.json());
 app.use(express.static(__dirname+"/upload"));
 app.all("*",function(req,res,next){
@@ -40,6 +42,7 @@ app.get("/getShopType",shop.getShopType);
 app.delete("/deleteShopType",shop.deleteShopType);
 // 更新店铺类别
 app.post("/updateShopType",shop.updateShopType);
+
 // 获取所有店铺类别列表
 app.get("/getAllShopTypeList",shop.getAllShopTypeList);
 
@@ -56,6 +59,15 @@ app.get("/getGoodsType",goods.getGoodsType);
 app.delete("/deleteGoodsType",goods.deleteGoodsType);
 // 更新商品类别
 app.post("/updateGoodsType",goods.updateGoodsType);
+/******************user************* */
+// 添加用户
+app.post("/addUser",user.addUser);
+// 获取用户列表
+app.get("/getUserList",user.getUserList);
+// 获取用户列表
+app.delete("/deleteUser",user.deleteUser);
+// 更新用户
+app.post("/updateUser",user.updateUser);
 
 app.listen(80,function(){
     console.log("success");

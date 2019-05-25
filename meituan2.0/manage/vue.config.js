@@ -1,6 +1,5 @@
 module.exports={
     devServer:{
-        open:true,
         proxy:{
             "/meituan":{
                 target:"http://127.0.0.1",
