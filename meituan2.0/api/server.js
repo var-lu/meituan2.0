@@ -5,7 +5,8 @@ const db =require("./module/db");
 const token =require("./module/token")
 const app = express();
 const admin = require("./router/admin");
-const shop = require("./router/shop")
+const shop = require("./router/shop");
+const goods = require("./router/goods");
 app.use(bodyParser.json());
 app.use(express.static(__dirname+"/upload"));
 app.all("*",function(req,res,next){
@@ -39,7 +40,22 @@ app.get("/getShopType",shop.getShopType);
 app.delete("/deleteShopType",shop.deleteShopType);
 // 更新店铺类别
 app.post("/updateShopType",shop.updateShopType);
+// 获取所有店铺类别列表
+app.get("/getAllShopTypeList",shop.getAllShopTypeList);
 
+// 添加店铺
+app.post("/addShop",shop.addShop);
+// 获取店铺列表
+app.get("/shopList",shop.getShopList);
+
+// 添加商品类别
+app.post("/addGoodsType",goods.addGoodsType);
+// 获取商品类别
+app.get("/getGoodsType",goods.getGoodsType);
+// 删除商品类别
+app.delete("/deleteGoodsType",goods.deleteGoodsType);
+// 更新商品类别
+app.post("/updateGoodsType",goods.updateGoodsType);
 
 app.listen(80,function(){
     console.log("success");
