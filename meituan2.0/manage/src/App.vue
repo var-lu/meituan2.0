@@ -44,6 +44,14 @@
                   <template slot="title">店铺管理</template>
                   <el-menu-item index="1-2-1">店铺</el-menu-item>
                 </el-submenu>
+                <el-submenu index="1-3">
+                  <template slot="title">商品类别管理</template>
+                  <el-menu-item index="1-3-1" @click="$router.push('/goodsTypeList')">商品类别</el-menu-item>
+                </el-submenu>
+                <el-submenu index="1-4">
+                  <template slot="title">商品管理</template>
+                  <el-menu-item index="1-4-1">商品</el-menu-item>
+                </el-submenu>
               </el-submenu>
               <el-menu-item index="2">
                 <i class="el-icon-menu"></i>

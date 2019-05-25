@@ -1,10 +1,14 @@
 const axios=require("axios")
 const state={
-    shopTypeList:[]
+    shopTypeList:[],
+    allShopTypeList:[]
 };
 const mutations={
     GET_SHOP_LOG(state,shopTypeList){
         state.shopTypeList=shopTypeList;
+    },
+    SET_ALL_SHOP_TYPE_LIST(state,allShopTypeList){
+        state.allShopTypeList=allShopTypeList;
     }
 };
 const actions={
@@ -21,6 +25,12 @@ const actions={
             }
             
         })
+    },
+    getAllShopTypeList(content){
+        axios.get("getAllShopTypeList")
+            .then(data=>{
+                content.commit("SET_ALL_SHOP_TYPE_LIST",data.shopTypeList);
+            })
     },
     deleteShopType(content,obj){
         axios.delete("deleteShopType",{
