@@ -53,6 +53,10 @@
                 <i class="el-icon-document"></i>
                 <span slot="title" @click="$router.push('/userList')">用户管理</span>
               </el-menu-item>
+              <el-menu-item index="4">
+                <i class="el-icon-document"></i>
+                <span slot="title" @click="$router.push('/adminLog')">商品管理</span>
+              </el-menu-item>
             </el-menu>
           </el-col>
         </el-row>

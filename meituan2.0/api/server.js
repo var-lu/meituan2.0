@@ -13,7 +13,7 @@ app.all("*",function(req,res,next){
     next();
 });
 app.post('/login',admin.login);
-//添加管理员
+// 添加管理员
 // app.post('/login',function(req,res){
 //     db.insertOne("adminList",{
 //         adminName:req.body.adminName,
