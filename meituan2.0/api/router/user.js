@@ -101,7 +101,7 @@ module.exports.deleteUser=function(req,res){
         }
     })
 }
-// 编辑店铺类别
+// 编辑用户信息
 module.exports.updateUser=function(req,res){
     function _updateUser(id,$set){
         db.updateOneById("mtUserList",id,{$set},function(err){
