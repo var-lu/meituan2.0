@@ -5,6 +5,8 @@ import backTop from "./common/backTop.vue";
 import homeNav from './common/homeNav.vue';
 import outLogin from "./common/outLogin.vue";
 import addressForm from "./common/addressForm.vue";
+import show from "./common/delete.vue";
+import timer from "./common/timer.vue"
 const components = {
 	backTop,
     shopPop,
@@ -12,7 +14,9 @@ const components = {
     homeNav,
     footNav,
     outLogin,
-    addressForm
+    addressForm,
+    show,
+    timer
 };
 export default{
     install(Vue){

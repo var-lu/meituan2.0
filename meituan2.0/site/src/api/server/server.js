@@ -133,6 +133,126 @@ app.post("/login",function(req,res){
         }
     })
 })
+//收货地址
+app.post("/location",function(req,res){
+    var phoneId = req.body.phoneId
+    var userName = req.body.userName
+    var phoneNumber = req.body.phoneNumber
+    var location = req.body.location
+    var plate = req.body.plate
+    db.findOne("userList",{phoneId},function(err,userInfo){
+         if(userInfo){
+             db.insertOne("location",{
+                 id:userInfo._id,
+                 userName,
+                 phoneNumber,
+                 location,
+                 plate
+             },function(err,results){
+                 res.json({
+                     ok:1,
+                     msg:"添加地址成功"
+                 })
+             })
+         }else{
+             res.json({
+                ok:-1,
+                msg:"失败"
+             })
+         }
+    })
+})
+//调取收货地址
+app.get("/getlocation",function(req,res){
+     var phoneId = req.query.phoneId
+     db.findOne("userList",{phoneId},function(err,info){
+         if(info){
+             var id=info._id
+               db.find("location",{id},function(err,locationInfo){
+                   if(locationInfo){
+                       res.json({
+                           ok:1,
+                           msg:"成功",
+                           locationInfo
+                       })
+                   }else{
+                       res.json({
+                           ok:-1,
+                           msg:"失败"
+                       })
+                   }
+               })
+         }else{
+               res.json({
+                   ok:-1,
+                   msg:"失败"
+               })
+         }
+     })
+})
+//获得当前地址
+app.get("/current",function(req,res){
+    var id = req.query.id
+    
+    db.findOneById("location",id,function(err,info){
+        console.log(id)
+        if(info){
+            res.json({
+                ok:1,
+                msg:"成功",
+                info
+            })
+        }else{
+            res.json({
+                ok:-1,
+                msg:"失败",
+            })
+        }
+    })
+})
+//修改地址
+app.post("/revise",function(req,res){
+    var id = req.body.id
+    var userName = req.body.userName
+    var phoneNumber = req.body.phoneNumber
+    var location = req.body.location
+    var plate = req.body.plate
+  
+      console.log(id)
+           db.updateOneById("location",id,{   
+            id,
+            userName,
+            phoneNumber,
+            location,
+            plate
+           },function(err,results){
+               console.log(err)
+               res.json({
+                   ok:1,
+                   msg:"修改成功"
+               })
+           })
+       
+   
+})
+//删除地址 
+app.get("/delete",function(req,res){
+    var id = req.query.id
+    db.deleteOneById("location",id,function(err,results){
+        if(!err){
+            res.json({
+                ok:1,
+                msg:"删除成功"
+            })
+        }else{
+            res.json({
+                ok:-1,
+                msg:"删除失败"
+            })
+        }
+    })
+})
+
    
    
 

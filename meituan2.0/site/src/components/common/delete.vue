@@ -2,9 +2,9 @@
     <div class="out_login">
         <div class="out_login_mark"></div>
         <div class="out_login_content">
-            <p>确定要退出登录吗？</p>
+            <p>确定要删除该订单么？</p>
             <div>
-                <p class="left" @click="outlogin()">确定</p>
+                <p class="left">确定</p>
                 <p class="right" @click="$emit('update:isShow',false)">取消</p>
             </div>
         </div>

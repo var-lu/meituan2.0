@@ -1,47 +1,43 @@
 <template>
+
     <form>
         <div class="address_username">
         <label>联系人：
-            <input type="text" name="userName" value="鹿东明">
+            <input type="text" name="userName" :value="form.userName">
         </label>
         </div>
         <div class="address_sex">
-        <input type="radio" id="man" ref="man" name="sex" hidden>
+        <input type="radio" id="man" value="1" ref="man" name="sex" hidden>
         <div class="left">
             <label for="man" @click="manRadioChecked=true;womanRadioChecked=false;"><i :class="{checked:manRadioChecked}"></i>先生</label>
         </div>
-        <input type="radio" id="woman" ref="woman" name="sex" hidden>
+        <input type="radio" id="woman" value="2" ref="woman" name="sex" hidden>
         <div class="right">
             <label for="woman" @click="manRadioChecked=false;womanRadioChecked=true;"><i :class="{checked:womanRadioChecked}"></i>女士</label>
         </div>
         </div>
         <div>
         <label>手机号：
-            <input type="text" name="phone" value="12121212">
+            <input type="text" name="phone" :value="form.phoneNumber">
         </label>
         </div>
         <div class="receive_address">
         <label>收货地址：
             <span></span>
-            <input type="text" name="address" value="12121212">
+            <input type="text" name="address" :value="form.location">
         </label>
         </div>
         <div>
         <label>门牌号：
-            <input type="text" name="addressInfo" value="一教">
+            <input type="text" name="addressInfo" :value="form.plate">
         </label>
         </div>
     </form>
+    
 </template>
 <script>
-export default {
-    data() {
-      return {
-        manRadioChecked:true,
-        womanRadioChecked:false
-      }
-    }
-}
+
+   
 </script>
 <style lang="scss" scoped>
 form{
@@ -57,7 +53,6 @@ form{
           outline: none;
           text-indent: .2rem;
           font-size: 16px;
-          height: .5rem;
         }
         i{
           display: inline-block;

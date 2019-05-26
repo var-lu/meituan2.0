@@ -12,7 +12,7 @@
        <div class="down">
          <p class="down_left">订单已取消</p>
          <p class="down_right">
-           <a href="javascript:;">删除</a>
+           <a href="javascript:;"  @click="isShow=true">删除</a>
             <a class="again" href="javascript:;">再来一单</a>
          </p>
        </div>
@@ -29,19 +29,25 @@
        <div class="down">
          <p class="down_left">订单已取消</p>
          <p class="down_right">
-           <a href="javascript:;">删除</a>
+           <a href="javascript:;" @click="isShow=true">删除</a>
             <a class="again" href="javascript:;">再来一单</a>
          </p>
        </div>
       </div>
+      <show v-show="isShow" :isShow.sync="isShow"></show>
   </div>
 </template>
 <script>
 export default {
   name:"order",
+  data(){
+     return {
+       isShow : false
+     }
+  },
   methods: {
     skipToDetails(){
-      this.$router.push({path:"/orderDetails"})
+      this.$router.push({path:"/orderDetails",query:{timeShow:false}})
     },
     skipToshop(){
       this.$router.push({path:"/shop"})

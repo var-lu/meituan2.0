@@ -53,6 +53,6 @@ Vue.use(VueLazyload, {
 new Vue({
   router,
   store,
-  render: function (h) { return h(this.$store.state.login.token?App:Login) }
+  render: function (h) { return h(store.state.login.token?App:Login) }
 }).$mount('#app')
 

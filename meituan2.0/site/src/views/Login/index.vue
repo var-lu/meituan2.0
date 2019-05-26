@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     sendCode(){
-      console.log(1)
+      console.log(this.phoneId)
       this.$store.dispatch("getCode",this)
     },
     login(){

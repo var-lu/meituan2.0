@@ -2,18 +2,18 @@
   <div class="address">
     <backTop topBg="#fff" topColor="#333" routeName="/my" topName="地址列表"></backTop>
     <div v-show="true" class="have_address">
-      <div>
-        <div class="info">
+      <div v-for="(item,i) in $store.state.location.address">
+        <div class="info" >
           <p class="address_info">
-            <span>吉林大学</span>
-            <span>四舍</span>
+            <span>{{item.location}}</span>
+            <span>{{item.plate}}</span>
           </p>
           <p>
-            <span>鹿东明先生</span>
-            <span>16622908939</span>
+            <span>{{item.userName}}</span>
+            <span>{{item.phoneNumber}}</span>
           </p>
         </div>
-        <div class="edit" @click="$router.push('/my/address/editaddress')"></div>
+        <div class="edit" @click="$router.push('/my/address/editaddress?id='+item._id)"></div>
       </div>
     </div>
     <div v-show="false" class="no_address">
@@ -40,7 +40,11 @@ export default {
     return {
       addAddressShow:false
     }
-  }
+  },
+  mounted() {
+      this.$store.dispatch("getlocation")
+      console.log(this.$store.state.location.address)
+  },
 };
 </script>
 <style lang="scss" scoped>

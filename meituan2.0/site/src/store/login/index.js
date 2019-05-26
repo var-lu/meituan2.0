@@ -2,6 +2,7 @@ import axios from "axios"
 const state = {
     code:"",
     token: localStorage.token,
+    phoneId:localStorage.phoneId
 }
 const mutations = {
     SET_CODE(state,code){
@@ -10,9 +11,13 @@ const mutations = {
     OUT_LOGIN(state){
         localStorage.clear();
         state.token=localStorage.token;
+        state.phoneId=localStorage.phoneId;
     },
     SET_TOKEN(state,token){
         state.token = localStorage.token = token;
+    },
+    SET_PHONEID(state,phoneId){
+        state.phoneId = localStorage.phoneId = phoneId;
     }
 }
 const actions = {
@@ -27,14 +32,15 @@ const actions = {
         })
     },
     login({commit},that){
-        axios.post("/api/login",{
+        axios.post("/api/userLogin",{
             phoneId:that.phoneId,
             code : that.$store.state.login.code
         })
         .then(({data})=>{
             if(data.ok===1){
-                console.log(data.token)
+                console.log(data,11111)
                 commit("SET_TOKEN",data.token);
+                commit("SET_PHONEID",data.phoneId);
             }
         })
     }

@@ -3,11 +3,15 @@
     <!-- 头部 -->
       <div class="orderTop">
         <div class="show">
+            <div v-show="timeShow">
             <p class="show_one">订单已取消 ></p>
             <p class="show_two">您的订单已取消</p>
+            </div>
+            <timer v-if = "!timeShow" :timeShow.sync="timeShow"></timer>
         </div>
         <div class="button">
             <input type="button" value="逛逛别家"/>
+            <input type="button" v-show = "!timeShow" value="立即付款"/>
             <input type="button" value="再来一单"/>
         </div>
       </div>
@@ -75,7 +79,18 @@
 </template>
 <script>
 export default {
-    name :"nextorder"
+    name :"nextorder",
+    data(){
+        return{
+            isShow:false,
+            timeShow:true
+        }
+    },
+    mounted() {
+        this.timeShow=this.$route.query.timeShow;
+
+    }
+    
 }
 </script>
 <style lang="scss" scoped>
@@ -101,7 +116,7 @@ export default {
           background:#ffffff;
       .show{
           width:3.46rem;
-          height:0.48rem;
+          height:0.58rem;
           margin: 0 0 0.14rem;
          .show_one {
               margin-bottom: 0.05rem;
@@ -115,7 +130,7 @@ export default {
       .button{
           width:100%;
           height:0.38rem;
-          margin: 0 0 0.14rem;
+          margin: 0 0 0.08rem;
           display: flex;
           justify-content:space-around;
           input{
