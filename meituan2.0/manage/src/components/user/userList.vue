@@ -10,7 +10,7 @@
                 </el-form-item>
                 <!-- 模仿前台添加用户 -->
                 <el-form-item>
-                    <el-button type="primary" @click="addOrUpdate=true;addShopTypeVisible=true" >添加用户</el-button>
+                    <el-button type="primary" @click="addOrUpdate=true;addUserVisible=true" >添加用户</el-button>
                 </el-form-item>
             </el-form>
         </div>

@@ -48,10 +48,21 @@ app.post("/updateShopType",shop.updateShopType);
 // 获取所有店铺类别列表
 app.get("/getAllShopTypeList",shop.getAllShopTypeList);
 
+
+
+
 // 添加店铺
 app.post("/addShop",shop.addShop);
 // 获取店铺列表
 app.get("/shopList",shop.getShopList);
+//修改店铺
+app.post("/updateShop",shop.updateShop);
+//删除店铺
+app.delete("/deleteShop",shop.deleteShop)
+
+
+
+
 
 // 添加商品类别
 app.post("/addGoodsType",goods.addGoodsType);
@@ -61,6 +72,17 @@ app.get("/getGoodsType",goods.getGoodsType);
 app.delete("/deleteGoodsType",goods.deleteGoodsType);
 // 更新商品类别
 app.post("/updateGoodsType",goods.updateGoodsType);
+
+
+
+// 添加商品类别
+app.post("/addGoods",goods.addGoods);
+// 获取商品类别
+app.get("/getGoodsList",goods.getGoodsList);
+// 删除商品类别
+app.delete("/deleteGoods",goods.deleteGoods);
+// 更新商品类别
+app.post("/updateGoods",goods.updateGoods);
 /******************user************* */
 // 添加用户
 app.post("/addUser",user.addUser);

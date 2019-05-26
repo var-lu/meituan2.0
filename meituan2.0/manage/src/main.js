@@ -7,12 +7,14 @@ import axios from "axios";
 import 'element-ui/lib/theme-chalk/index.css';
 import login from "@/views/login";
 import filters from "@/filters/index";
+import bus from "@/bus";
 import components from "@/components/index";
 Vue.use(ElementUI);
 Vue.use(components);
 Vue.use(filters);
 Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
+Vue.prototype.$bus=bus;
 // axios拦截器
 axios.interceptors.request.use(config=>{
   // 添加meituan前缀反向代理

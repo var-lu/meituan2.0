@@ -1,14 +1,14 @@
 <template>
     <el-dialog title="添加店铺" :visible="visible"  @update:visible="v=>$emit('update:visible',v)">
         <el-form :model="form" ref="myForm">
-            <el-form-item prop="shopTypeName" label="店铺名称" label-width="150px">
+            <el-form-item prop="shopType" label="店铺名称" label-width="150px">
                 <el-input v-model="form.shopName" style="width:300px;" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item prop="shopTypeId" label="店铺类别" label-width="150px">
+            <el-form-item prop="shopTypeId" label="店铺类别名称" label-width="150px">
                 <el-select v-model="form.shopTypeId" placeholder="请选择">
                     <el-option v-for="item in $store.state.shop.allShopTypeList"
                             :key="item._id"
-                            :label="item.shopTypeName"
+                            :label="item.shopType"
                             :value="item._id">
                     </el-option>
                 </el-select>
@@ -52,21 +52,31 @@
         },
         methods:{
             upSuccess(res){
-                // console.log(res);
+                if(res.ok===1){
+	                this.$message.success(res.msg);
+	            }else{
+	                this.$message.error(res.msg)
+	            }
                 // 清空表单
                 this.$refs.myForm.resetFields();
                 // 清空上传的文件
                 this.$refs.upload.clearFiles();
-                //this.$bus.$emit("getShopList",1);
+                this.$bus.$emit("getShopList",1);
                 if(this.$route.name !== "shopList"){
                     this.$router.push({name:"shopList"});
                 }
+//              // 读取店铺类别
+//	            this.$store.dispatch("getShopTypeList",{
+//	                pageIndex:1
+//	            })
                 //console.log(33333,this.$route.name);
-                this.$emit('update:visible',false);
+                // 关闭dialog
+                this.$emit("update:visible",false)
             },
             addShop(){
-            	console.log(this.$refs.upload);
+            	//console.log(44444,this.$refs.upload);
                 this.$refs.upload.submit();
+               
             }
         },
         watch:{

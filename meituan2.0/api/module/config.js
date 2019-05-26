@@ -13,3 +13,4 @@ module.exports.urlEnum = {
     "ADD_WEIBO":"/addWeibo",
     "GET_WEIBO":"/getWeibo"
 }
+module.exports.limitNum = 5;
