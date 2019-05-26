@@ -83,8 +83,8 @@
                 userPhone:""
           },
           baseURL:{
-            addUser:"/ele/addUser",
-            updateUser:"/ele/updateUser"
+            addUser:"/meituan/addUser",
+            updateUser:"/meituan/updateUser"
           },
           userNameRules:[
               { required: true, message: '姓名不能为空'},

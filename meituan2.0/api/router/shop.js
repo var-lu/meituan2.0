@@ -1,4 +1,5 @@
 const db = require("../module/db");
+const {getPageList} = require("../module/common");
 const token = require("../module/token");
 const upPic=require("../module/upPic");
 const {unlink}=require("fs");
@@ -182,38 +183,37 @@ module.exports.getAllShopTypeList = function (req,res) {
 module.exports.addShop=function(req,res){
     upPic.upPic(req,"shopPic",function(obj){
         if(obj.ok===3){
-        db.findOneById("shopTypeList",obj.params.shopTypeId,function (err,shopType) {	
-            db.count("shopList",{
-                shop :obj.params.shop
-            },function(count){
-                if(count>0){
-                    // 删除已经存在店铺的图片
-                    upPic.deletePic(obj.params.newPicName,function(){
-                        res.json({
-                            ok:-1,
-                            msg:"该店铺已存在了哦，请不要继续添加^_^"
-                        });
-                    })
-                }else{
-                	
-	                    db.insertOne("shopList",{
-	                        shopName:obj.params.shopName,
-	                        shopPic:obj.params.newPicName,
-	                        // shopTypeId:mongodb.ObjectId(obj.params.shopTypeId),
-	                        shopTypeId:shopType._id,
-	                        shopTypeName:shopType.shopTypeName,
-	                        addTime:Date.now(),
-	                        updateTime:Date.now()
-	                    },function(err){
+	        db.findOneById("shopTypeList",obj.params.shopTypeId,function (err,shopType) {	
+	         /*   db.count("shopList",{
+	                shop :obj.params.shop
+	            },function(count){
+	                if(count>0){
+	                    // 删除已经存在店铺的图片
+	                    upPic.deletePic(obj.params.newPicName,function(){
 	                        res.json({
-	                            ok:1,
-	                            msg:"店铺添加成功了哦"
-	                        })
-	                
-                    })
-                }
-            })
-             })   
+	                            ok:-1,
+	                            msg:"该店铺已存在了哦，请不要继续添加^_^"
+	                        });
+	                    })
+	                }else{
+		                    
+	                }
+	            })*/
+	   			db.insertOne("shopList",{
+	                shopName:obj.params.shopName,
+	                shopPic:obj.params.newPicName,
+	                // shopTypeId:mongodb.ObjectId(obj.params.shopTypeId),
+	                shopTypeId:shopType._id,
+	                shopType:shopType.shopType,
+	                addTime:Date.now(),
+	                updateTime:Date.now()
+	            },function(err){
+	                res.json({
+	                    ok:1,
+	                    msg:"店铺添加成功了哦"
+	                })
+	        	})
+	        })   
         }else{
             res.json({
                 ok:-1,
