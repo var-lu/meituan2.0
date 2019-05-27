@@ -26,9 +26,9 @@
       </div>
       <section>
         <nav>
-            <router-link to="/shop/" class="nav"><div @click="index=0" :class="{active:index === 0}">点菜</div><i :style="{display:index===0?'block':'none'}"></i></router-link>
-           <router-link to="/shop/shopevaluate" class="nav"><div @click="index=1" :class="{active:index === 1}">评价</div><i :style="{display:index===1?'block':'none'}"></i></router-link>
-           <router-link to="/shop/shopmerchant" class="nav"><div @click="index=2" :class="{active:index === 2}">商家</div><i :style="{display:index===2?'block':'none'}"></i></router-link>
+            <router-link replace to="/shop/" class="nav"><div @click="index=0" :class="{active:index === 0}">点菜</div><i :style="{display:index===0?'block':'none'}"></i></router-link>
+           <router-link replace to="/shop/shopevaluate" class="nav"><div @click="index=1" :class="{active:index === 1}">评价</div><i :style="{display:index===1?'block':'none'}"></i></router-link>
+           <router-link replace to="/shop/shopmerchant" class="nav"><div @click="index=2" :class="{active:index === 2}">商家</div><i :style="{display:index===2?'block':'none'}"></i></router-link>
         </nav>
         <router-view/>
       </section>
@@ -81,6 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #app .mint-popup-bottom{
+    width: 100%;
+  }
   .top{
     width: 100%;
     height: 0.5rem;

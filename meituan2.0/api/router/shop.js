@@ -183,7 +183,9 @@ module.exports.getAllShopTypeList = function (req,res) {
 module.exports.addShop=function(req,res){
     upPic.upPic(req,"shopPic",function(obj){
         if(obj.ok===3){
-	        db.findOneById("shopList",obj.params.shopTypeId,function (err,shopType) {	
+            console.log(obj)
+	        db.findOneById("shopList",obj.params.shopTypeId,function (err,shopType) {
+                console.log(shoptype)	
 	         /*   db.count("shopList",{
 	                shop :obj.params.shop
 	            },function(count){

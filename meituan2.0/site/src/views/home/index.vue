@@ -7,6 +7,28 @@
     <section>
       <div class="image">
         <div class="imgs">
+          <div @click="aaa" ref="username" v-for="(item,i) in $store.state.home.shopTypeList">
+            <img :src="'http://127.0.0.1/'+item.shopTypePic"/>
+            <p ref="p">{{item.shopType}}</p>
+          </div>
+          <!-- <div @click="aaa" ref="username">
+            <img src="http://p0.meituan.net/jungle/45ff2f098a20a77122bff8385192f0ec10547.png" alt>
+            <p ref="p">美团超市</p>
+          </div>
+          <div @click="aaa" ref="username">
+            <img src="http://p1.meituan.net/jungle/12a9834827909fa55f54bce96e67470711250.png" alt>
+            <p>生鲜果蔬</p>
+          </div>
+          <div @click="aaa" ref="username">
+            <img src="http://p1.meituan.net/jungle/8b5e1702d4145ccf058ba5fb31008c5310912.png" alt>
+            <p>美团专送</p>
+          </div>
+          <div @click="aaa" ref="username">
+            <img src="http://p1.meituan.net/jungle/8b635825ef28dd85f3d3f070de4e64ed9366.png" alt>
+            <p>晚餐优选</p>
+          </div> -->
+        </div>
+        <!-- <div class="imgs">
           <div @click="aaa" ref="username">
             <img src="http://p1.meituan.net/jungle/8b5e1702d4145ccf058ba5fb31008c5310912.png" alt>
             <p ref="p">美食</p>
@@ -27,29 +49,7 @@
             <img src="http://p1.meituan.net/jungle/8b635825ef28dd85f3d3f070de4e64ed9366.png" alt>
             <p>晚餐优选</p>
           </div>
-        </div>
-        <div class="imgs">
-          <div @click="aaa" ref="username">
-            <img src="http://p1.meituan.net/jungle/8b5e1702d4145ccf058ba5fb31008c5310912.png" alt>
-            <p ref="p">美食</p>
-          </div>
-          <div @click="aaa" ref="username">
-            <img src="http://p0.meituan.net/jungle/45ff2f098a20a77122bff8385192f0ec10547.png" alt>
-            <p ref="p">美团超市</p>
-          </div>
-          <div @click="aaa" ref="username">
-            <img src="http://p1.meituan.net/jungle/12a9834827909fa55f54bce96e67470711250.png" alt>
-            <p>生鲜果蔬</p>
-          </div>
-          <div @click="aaa" ref="username">
-            <img src="http://p1.meituan.net/jungle/8b5e1702d4145ccf058ba5fb31008c5310912.png" alt>
-            <p>美团专送</p>
-          </div>
-          <div @click="aaa" ref="username">
-            <img src="http://p1.meituan.net/jungle/8b635825ef28dd85f3d3f070de4e64ed9366.png" alt>
-            <p>晚餐优选</p>
-          </div>
-        </div>
+        </div> -->
       </div>
       <p class="imgs_p">
         <span>——</span> 附近商家
@@ -83,7 +83,11 @@ export default {
       console.log(this.$refs.p.innerText);
     }
 
-  }
+  },
+  mounted() {
+        this.$store.dispatch("getShopList")
+       console.log(1112222211,this.$store.state.home.shopTypeList)
+  },
 };
 </script>
 
@@ -124,14 +128,17 @@ section {
   flex: 1;
   overflow: auto;
   .imgs {
+    width:100%;
     display: flex;
+    flex-wrap: wrap;
     margin-top: 0.2rem;
     /* 自由分布 */
-    justify-content: space-around;
+  
+    
     div {
-      float: left;
+      width:20%;
       img {
-        width: 0.44rem;
+        width: 60%;
         height: 0.44rem;
       }
     }

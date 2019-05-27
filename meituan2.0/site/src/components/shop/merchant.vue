@@ -73,6 +73,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#app .mint-popup-bottom{
+        width: 100%;
+    }
     .merchant{
         overflow-x: hidden;
         overflow-y: auto;
