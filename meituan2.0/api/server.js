@@ -93,6 +93,8 @@ app.delete("/deleteUser",user.deleteUser);
 // 更新用户
 app.post("/updateUser",user.updateUser);
 
+app.listen(80,function(){
+    console.log("success");
 
   /*
   前台没分模块
@@ -229,4 +231,5 @@ app.get("/delete",function(req,res){
 
 app.listen(80,function(){
     console.log("success");
+});
 })

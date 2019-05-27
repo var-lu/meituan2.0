@@ -59,7 +59,7 @@ module.exports.addGoodsType=function(req,res){
                     upPic.deletePic(obj.params.newPicName,function(){
                         res.json({
                             ok:-1,
-                            msg:"该店铺类型已存在了哦，请不要继续添加^_^"
+                            msg:"该商品类型已存在了哦，请不要继续添加^_^"
                         });
                     })
                 }else{
@@ -71,7 +71,7 @@ module.exports.addGoodsType=function(req,res){
                     },function(err){
                         res.json({
                             ok:1,
-                            msg:"店铺类别添加成功了哦"
+                            msg:"商品类别添加成功了哦"
                         })
                     })
                 }
@@ -116,7 +116,7 @@ module.exports.updateGoodsType=function(req,res){
             if(info&&info._id.toString()!==req.body._id){
                 res.json({
                     ok:-1,
-                    msg:"这个店铺类型已存在了哦，请换个名字修改^_^"
+                    msg:"这个商品类型已存在了哦，请换个名字修改^_^"
                 })
             }else{
                 var $set={
@@ -141,7 +141,7 @@ module.exports.updateGoodsType=function(req,res){
                         upPic.deletePic(obj.params.newPicName,function(){
                             res.json({
                                 ok:-1,
-                                msg:"这个店铺类型已存在了哦，请换个名字修改^_^"
+                                msg:"这个商品类型已存在了哦，请换个名字修改^_^"
                             });
                         })
                     }else{
